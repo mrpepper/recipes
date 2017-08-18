@@ -167,27 +167,6 @@
 
 
     <table id="roottable" class="table-responsive">
-<!--
-      <thead>
-        <tr>
-          <td colspan="&#fields">
-            <table class="display">
-              <tr>
-                <td class="logo"><%logoURL%></td>
-                <td>
-                  <!--<div class="title">&reporttitle</div><p>-!->
-                  <div class="header">&reportheader</div>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </thead>
-
-      <tfoot>
-        <tr><td colspan="&#fields" class="footer">&reportfooter</td></tr>
-      </tfoot>
--->
     <tbody hidden>
       <%begindetail%>
 
