@@ -1,0 +1,478 @@
+<%description
+    <b>${DATA}$: </b>${ITEM_FIELDS}$<br>
+    <b>${NOTES}$: </b>${DESCRIPTION_NOTES}$<br>
+%>
+<%param
+    name="reporttitle"
+    type="String"
+    prompt="${REPORT_TITLE}$"
+    value=""
+    description="${REPORT_TITLE_DESCRIPTION}$"
+%>
+<%param
+    name="reportheader"
+    type="MultiString"
+    prompt="${REPORT_HEADER}$"
+    value=""
+    description="${REPORT_HEADER_DESCRIPTION}$"
+%>
+<%param
+    name="reportfooter"
+    type="MultiString"
+    prompt="${REPORT_FOOTER}$"
+    value=""
+    description="${REPORT_FOOTER_DESCRIPTION}$"
+%>
+<%param name="issueheading"
+    type="String"
+    prompt="${ITEM_HEADING}$"
+    value="{%builtin Type%}: {%builtin ID%} - {%builtin Summary%}"
+    description="${ITEM_HEADING_DESCRIPTION}$"
+%>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>&reporttitle</title>
+    <style type="text/css">
+    <%screenStyleSheet%>
+    </style>
+
+    <style type="text/css">
+        table#entries tr td { font-size:0.6em; border:solid 1px rgb(66,151,181);}
+        div#Dashboard table { border-collapse:collapse; empty-cells:show; }
+        div#Dashboard table td { vertical-align:top; text-align:center; }
+        div#Dashboard p#footnotes { font-size:0.6em; }
+        p#content { font-size:0.8em; color:rgb(0,0,0); }
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+    <script>google.charts.load('current', {packages: ['corechart']}); </script>
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
+
+    <!--
+        We cannot conditionally output the item headers, so if an item doesn't have any
+        related items the recipe will still output empty tables.  This function will
+        inspect the final DOM and remove any empty tables.
+    -->
+    <script type="text/javascript">
+    function removeEmptyHeaders() {
+        var tables = document.getElementById("roottable").getElementsByTagName("table");
+        var toRemove = new Array();
+
+        for(var i = 0; i < tables.length; i++ ) {
+            var children = tables[i].childNodes;
+            var containsRows = false;
+            outer: for(var j = 0; j < children.length; j++) {
+                switch(children[j].tagName) {
+                    case "TBODY":
+                        containsRows = children[j].getElementsByTagName("tr").length > 0;
+                        break;
+                    case "TABLE":
+                        // a related issue sub-table will appear after any issue rows
+                        break outer;
+                    default:
+                        //ignore
+                        break;
+                }
+            }
+
+            if(!containsRows) {
+                // we are pointing at the table to remove but we want to remove the
+                // containing row
+                var parentCell = tables[i].parentNode;
+                if(parentCell) {
+                    var parentRow = parentCell.parentNode;
+                    if(parentRow) {
+                        toRemove.push(parentRow);
+                    }
+                }
+            }
+        }
+
+        for(var i = 0; i < toRemove.length; i++) {
+            toRemove[i].parentNode.removeChild(toRemove[i]);
+        }
+    }
+    </script>
+
+
+
+</head>
+<%dateformat%>
+<%datetimeformat%>
+<%sortby &sortby%>
+<body onload="removeEmptyHeaders()">
+    <!--Div that holds the Title -->
+    <div id="header">
+        <div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
+        <h1>&reporttitle</h1>
+        <!--
+        <div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
+        -->
+        <p id="content">Project: FT46<span id="project"></span><br>
+        Report issue of: <span id="reportdate"><%currentdate%></span></p>
+    </div>
+
+    <!--Div that holds the Navbar -->
+    <div class="container">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Report Options:</a>
+          </div>
+
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <select id="selected_Test_Platforms" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
+              </select>
+            </div>
+            <div class="form-group">
+              <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
+                <option value='-All-' selected>-All-</option>
+                <option value='Safety Relevant'>Safety Relevant</option>
+                <option value='QM'>QM</option>
+              </select>
+            </div>
+            <button type="button" onclick="main()" class="btn   btn-default">Submit</button>
+            <button type="button" class="btn btn-info" data-toggle="collapse"   data-target="#OverviewTable">Requirements Table</button>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    <!--Div that holds the Charts -->
+    <div class="table-responsive" id="Dashboard">
+        <table class="table">
+            <tr>
+                <td><div id="PTCoverage" style="width:1000px; height:400px;"></div></td>
+                <td><div id="SOWCoverageChart" style="width:600px; height:400px;"></div></td>
+            </tr>
+            <tr>
+                <td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>
+                <td><div id="OverviewChart" style="width:600px; height:400px;"></div></td>
+
+            </tr>
+        </table>
+    </div>
+    <!--Table that holds the Charts -->
+
+
+    <table id="roottable" class="table-responsive">
+<!--
+      <thead>
+        <tr>
+          <td colspan="&#fields">
+            <table class="display">
+              <tr>
+                <td class="logo"><%logoURL%></td>
+                <td>
+                  <!--<div class="title">&reporttitle</div><p>-!->
+                  <div class="header">&reportheader</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </thead>
+
+      <tfoot>
+        <tr><td colspan="&#fields" class="footer">&reportfooter</td></tr>
+      </tfoot>
+-->
+    <tbody hidden>
+      <%begindetail%>
+
+      <!--<tr><td colspan="&#fields" class="bold_color_large">&issueheading - <a    href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=<%ID%>">   view in PTC</a></td></tr>-->
+        <tr class="scr_header">
+          <!-- Display issue field headings -->
+          <%iteratefields%>
+          <th class="heading1">&fielddisplayname</th>
+          <%/iteratefields%>
+          <th class="heading1">Link to PTC</th>
+        </tr>
+        <tr class="scr">
+          <%iteratefields%>
+          <td class="border &relationshipfielddisplayname">&fieldname</td>
+          <%/iteratefields%>
+          <td class="border"><a     href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=<%ID   %>">view in PTC</a></td>
+        </tr>
+        <!-- Relationships -->
+
+        <!--<tr><td colspan="100%"><hr class="hr_default"></td></tr>-->
+        <!-- Level One Relationships -->
+        <tr class="scr_relationship"><td colspan="&#fields">
+          <%segment
+          name="Level 1 Relationships"
+          type="relationship"
+          enabled="true"
+          description="<html>${LEVEL1_REL_DESCRIPTION}$</html>"
+          %>
+          <table class="display" width="100%">
+            <!-- Display issue field headings -->
+            <thead>
+              <tr>
+                <%iteraterelationshipfields%>
+                <th class="heading1">&relationshipfielddisplayname</th>
+                <%/iteraterelationshipfields%>
+                <th class="heading1">Link to PTC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%beginrelationshipsdetail &relationshipsdetailfields%>
+              <%relationshipfilter%>
+              <%relationshipsortby &sortby%>
+              <tr class="platform_test_case">
+                <%iteraterelationshipfields%>
+                <td class="level1 &relationshipfielddisplayname">&relationshipfieldname</td>
+                  <%/iteraterelationshipfields%>
+                  <td class="level1"><a     href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=<%Re   lationshipID%>">viewiPTC</a></td>
+              </tr>
+
+              <!-- Level Two Relationships -->
+              <!-- Placed outside the segment to capture the number of fields of the    parent item. -->
+              <tr><td colspan="&#fields" class="indent_transparent">
+                <%segment
+                name="Level 2 Relationships"
+                type="relationship"
+                enabled="true"
+                description="<html>${LEVEL2_REL_DESCRIPTION}$</html>"
+                %>
+                <table class="display">
+                  <!-- Display issue field headings -->
+                  <thead>
+                    <tr>
+                      <%iteraterelationshipfields%>
+                      <th class="heading1">&relationshipfielddisplayname</th>
+                      <%/iteraterelationshipfields%>
+                      <th class="heading1">Link to PTC</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%beginrelationshipsdetailL2 &relationshipsdetailfields%>
+                    <%relationshipfilter%>
+                    <%relationshipsortby &sortby%>
+                    <tr class="project_test_case">
+                      <%iteraterelationshipfields%>
+                      <td class="level2     &relationshipfielddisplayname">&relationshipfieldname</td>
+                      <%/iteraterelationshipfields%>
+                      <td class="level2"><a     href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=  <%RelationshipL2ID%>">view   in PTC</a></td>
+                    </tr>
+
+                    <!-- Level Three Relationships -->
+                    <tr><td colspan="&#fields" class="indent_transparent">
+                      <%segment
+                      name="Level 3 Relationships"
+                      type="relationship"
+                      enabled="false"
+                      description="<html>${LEVEL3_REL_DESCRIPTION}$</html>"
+                      %>
+                      <table class="display">
+                        <!-- Display issue field headings -->
+                        <thead><tr>
+                          <%iteraterelationshipfields%>
+                          <th class="heading1">&relationshipfielddisplayname</th>
+                          <%/iteraterelationshipfields%>
+                        </tr></thead>
+                        <tbody>
+                          <%beginrelationshipsdetailL3 &relationshipsdetailfields%>
+                          <%relationshipfilter%>
+                          <%relationshipsortby &sortby%>
+                          <tr>
+                            <%iteraterelationshipfields%>
+                            <td class="level3">&relationshipfieldname</td>
+                            <%/iteraterelationshipfields%>
+                          </tr>
+
+                          <!-- Level Four Relationships -->
+                          <tr><td colspan="&#fields" class="indent_transparent">
+                            <%segment
+                            name="Level 4 Relationships"
+                            type="relationship"
+                            enabled="false"
+                            description="<html>${LEVEL4_REL_DESCRIPTION}$</html>"
+                            %>
+                            <table class="display">
+                              <!-- Display issue field headings -->
+                              <thead><tr>
+                                <%iteraterelationshipfields%>
+                                <th class="heading1">&relationshipfielddisplayname</th>
+                                <%/iteraterelationshipfields%>
+                              </tr></thead>
+                              <tbody>
+                                <%beginrelationshipsdetailL4 &relationshipsdetailfields%>
+                                <%relationshipfilter%>
+                                <%relationshipsortby &sortby%>
+                                <tr>
+                                  <%iteraterelationshipfields%>
+                                  <td class="level4">&relationshipfieldname</td>
+                                  <%/iteraterelationshipfields%>
+                                </tr>
+
+                                <!-- Level Five Relationships -->
+                                <tr><td colspan="&#fields" class="indent_transparent">
+                                  <%segment
+                                  name="Level 5 Relationships"
+                                  type="relationship"
+                                  enabled="false"
+                                  description="<html>${LEVEL5_REL_DESCRIPTION}$</html>"
+                                  %>
+                                  <table class="display">
+                                    <!-- Display issue field headings -->
+                                    <thead><tr>
+                                      <%iteraterelationshipfields%>
+                                      <th class="heading1">&relationshipfielddisplayname</th>
+                                      <%/iteraterelationshipfields%>
+                                    </tr></thead>
+                                    <tbody>
+                                      <%beginrelationshipsdetailL5 &relationshipsdetailfields%>
+                                      <%relationshipfilter%>
+                                      <%relationshipsortby &sortby%>
+                                      <tr>
+                                        <%iteraterelationshipfields%>
+                                        <td class="level5">&relationshipfieldname</td>
+                                        <%/iteraterelationshipfields%>
+                                      </tr>
+
+                                      <!-- Level Six Relationships -->
+                                      <tr><td colspan="&#fields" class="indent_transparent">
+                                        <%segment
+                                        name="Level 6 Relationships"
+                                        type="relationship"
+                                        enabled="false"
+                                        description="<html>${LEVEL6_REL_DESCRIPTION}$</html>"
+                                        %>
+                                        <table class="display">
+                                          <!-- Display issue field headings -->
+                                          <thead><tr>
+                                            <%iteraterelationshipfields%>
+                                            <th class="heading1">&relationshipfielddisplayname</th>
+                                            <%/iteraterelationshipfields%>
+                                          </tr></thead>
+                                          <tbody>
+                                            <%beginrelationshipsdetailL6 &relationshipsdetailfields%>
+                                            <%relationshipfilter%>
+                                            <%relationshipsortby &sortby%>
+                                            <tr>
+                                              <%iteraterelationshipfields%>
+                                              <td class="level6">&relationshipfieldname</td>
+                                              <%/iteraterelationshipfields%>
+                                            </tr>
+
+                                            <!-- Level Seven Relationships -->
+                                            <tr><td colspan="&#fields" class="indent_transparent">
+                                              <%segment
+                                              name="Level 7 Relationships"
+                                              type="relationship"
+                                              enabled="false"
+                                              description="<html>${LEVEL7_REL_DESCRIPTION}$</html>"
+                                              %>
+                                              <table class="display">
+                                                <!-- Display issue field headings -->
+                                                <thead><tr>
+                                                  <%iteraterelationshipfields%>
+                                                  <th     class="heading1">&relationshipfielddisplayname</th>
+                                                  <%/iteraterelationshipfields%>
+                                                </tr></thead>
+                                                <tbody>
+                                                  <%beginrelationshipsdetailL7 &relationshipsdetailfields%>
+                                                  <%relationshipfilter%>
+                                                  <%relationshipsortby &sortby%>
+                                                  <tr>
+                                                    <%iteraterelationshipfields%>
+                                                    <td class="level7">&relationshipfieldname</td>
+                                                    <%/iteraterelationshipfields%>
+                                                  </tr>
+
+                                                  <!-- Level Eight Relationships -->
+                                                  <tr><td colspan="&#fields"    class="indent_transparent">
+                                                    <%segment
+                                                    name="Level 8 Relationships"
+                                                    type="relationship"
+                                                    enabled="false"
+                                                    description="<html>${LEVEL8_REL_DESCRIPTION}$</ht   ml>"
+                                                    %>
+                                                    <table class="display">
+                                                      <!-- Display issue field headings -->
+                                                      <thead><tr>
+                                                        <%iteraterelationshipfields%>
+                                                        <th     class="heading1">&relationshipfielddisplayname</t   h>
+                                                          <%/iteraterelationshipfields%>
+                                                        </tr></thead>
+                                                        <tbody>
+                                                          <%beginrelationshipsdetailL8    &relationshipsdetailfields%>
+                                                          <%relationshipfilter%>
+                                                          <%relationshipsortby &sortby%>
+                                                          <tr>
+                                                            <%iteraterelationshipfields%>
+                                                            <td class="level8">&relationshipfieldname</td>
+                                                            <%/iteraterelationshipfields%>
+                                                          </tr>
+                                                          <%endrelationshipsdetailL8%>
+                                                        </tbody>
+                                                      </table>
+                                                    </td></tr>
+                                                    <%/segment%>
+                                                    <%endrelationshipsdetailL7%>
+                                                  </tbody>
+                                                </table>
+                                              </td></tr>
+                                              <%/segment%>
+                                              <%endrelationshipsdetailL6%>
+                                            </tbody>
+                                          </table>
+                                        </td></tr>
+                                        <%/segment%>
+                                        <%endrelationshipsdetailL5%>
+                                      </tbody>
+                                    </table>
+                                  </td></tr>
+                                  <%/segment%>
+                                  <%endrelationshipsdetailL4%>
+                                </tbody>
+                              </table>
+                            </td></tr>
+                            <%/segment%>
+                            <%endrelationshipsdetailL3%>
+                          </tbody>
+                        </table>
+                      </td></tr>
+                      <%/segment%>
+                      <%endrelationshipsdetailL2%>
+                  </tbody>
+                </table>
+              </td></tr>
+              <%/segment%>
+              <%endrelationshipsdetail%>
+            </tbody>
+            <!--    <tr><td colspan="100%"><hr class="hr_default"></td></tr>
+            <tr><td colspan="100%">&nbsp;</td></tr>
+          -->
+        </table>
+      </td>
+    </tr>
+
+    <%/segment%>
+    <!--<tr><td colspan="&#fields"><hr class="hr_default"></td></tr>
+    <tr><td colspan="&#fields">&nbsp;</td></tr>-->
+    <%enddetail%>
+
+    <div id="TableContainer"> </div>
+
+    </tbody>
+
+
+    <div id="footer">
+        <p>Report and any print outs are not subject to version control or configuration management. The report is only valid according to the stated issue date.<br>
+        Disclosure or duplication without consent is prohibited.</p>
+    </div>
+</body>
+</html>

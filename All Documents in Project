@@ -1,0 +1,177 @@
+<%description 
+    <b>Data: </b>Item fields, Relationships<br>
+    <b>Notes: </b>This report displays a listing of all documents in a project, and<br/>
+	their subdocuments, including information about the reference type and document metrics.<br>
+%>
+<%param 
+    name="reporttitle" 
+    type="String" 
+    prompt="Report Title" 
+    value="All Documents in Project" 
+    description="Descriptive title for your report."
+%>
+<%param
+    name="reportheader" 
+    type="MultiString" 
+    prompt="Report Header" 
+    value="" 
+    description="Text appearing at the top of the report page."
+%>
+<%param
+    name="reportfooter" 
+    type="MultiString" 
+    prompt="Report Footer" 
+    value="" 
+    description="Text appearing at the bottom of the report page."
+%>
+<%param
+    name="doccontentreport"
+    type="String"
+    prompt="Document Content Report Name"
+    value="Document+Content"
+    description="The name of an instance of the Document Content Report. All spaces in the name should be replaced with a plus character: +."
+%>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>&reporttitle</title>
+    <%screenStyleSheet%>
+    <%printerStyleSheet%>
+	<script type="text/javascript">
+		var line_count=0;
+		
+		function writeEvenOddTRTag() {
+			line_count++; 
+			if (line_count%2 == 0)
+				document.write("<tr class='even_row'>");
+			else
+				document.write("<tr class='odd_row'>");
+		}
+		
+		function trim(str) { 
+			str = str.replace(/^\s+|\s+$/g, '');
+			str = str.replace(/^(\&nbsp\;)+|(\&nbsp\;)+$/g, '');
+			return str;
+		}
+		
+		function writeCheckbox(str){
+			if (trim(str) == "true")
+				document.write("<input type='checkbox' checked disabled/>");
+		}
+		var REPORT_ISSUES = "";
+	</script>
+</head>
+<%dateformat%>
+<%datetimeformat%>
+<%sortby &sortby%>
+<body>
+<table class="heading">
+<tr>
+	<td><%logoURL%></td>
+	<td class="title_white" align="right" width="100%">&reporttitle</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+<table class="white_bg">
+    <tr><td></td></tr>
+</table>
+<table width="100%" class="heading">
+    <tr><td></td></tr>
+</tr>
+</table>
+<p class="header">&reportheader</p>
+<p class="date"><%currentdate%></p>
+<p><a id="RERUNLINK"><img src="<%hosturl%>MKS_RQ_2007/refresh.gif"></a></p>
+
+<table class="detailrows fullWidth">
+<%begindetail%>
+	<script type="text/javascript">
+		if(REPORT_ISSUES == "") REPORT_ISSUES = <%<%builtin ID%>%>;
+		else REPORT_ISSUES = REPORT_ISSUES+","+<%<%builtin ID%>%>;
+		var docsListed = new Array();
+	</script>
+<tr>
+<td>
+<table class="detailrows" width="50%" align=center>
+<!-- Display issue heading -->
+<tr>
+	<td colspan="2" class="detailheading"><%<%builtin Project%>%> (<a href="<%hosturl%>im/WebClient?IssueID=<%<%builtin ID%>%>" target="_blank"><%<%builtin ID%>%></a>)</td>
+</tr>
+<!-- Display issue field names and values -->
+<%iteratefields%>
+<tr class="even_row">
+<th nowrap>&fielddisplayname</th><td width="100%">&fieldname</td>
+</tr>
+<%/iteratefields%>
+</table></td></tr>
+<!-- Relationships info -->
+<!-- Display relationship heading -->
+<tr><td colspan="2" class="detailheading">Documented By</td></tr>
+<tr>
+    <td colspan="2">
+        <table class="detailcols fullWidth">
+<%segment
+	name="Documented By"
+	type="relationship"
+	enabled="true"
+	description="<html>Display documents related to the project returned by the report query.</html>"
+	%>
+	<%param name="norelationships"
+    type="String" 
+    prompt="No Documents Message"
+    value="No documents."
+    description="The message displayed if there are no related documents found."
+	%>		
+        <%beginrelationshipsdetail &relationshipsdetailfields%>
+        <!-- Display relationship issue field headings -->
+        <%beginrelationshipsection header%>
+        <tr>
+            <th style="text-align:center">ID</th>
+			<th style="text-align:center">Name</th>
+			<%iteraterelationshipfields%>
+			<th style="text-align:center">&relationshipfielddisplayname</th>
+			<%/iteraterelationshipfields%>
+			<th style="text-align:center">View Document</th>
+        </tr>
+        <%endrelationshipsection%>
+        <%beginrelationshipsection none%>
+            <tr><td>&norelationships</td></tr>
+        <%endrelationshipsection%>
+        <!-- Display relationship issue field values -->
+		<script type="text/javascript">
+			var found = false;
+			for(var i=0; i<docsListed.length; i++){
+				if (docsListed[i] == "<%Relationship <%builtin ID%>%>")
+					found = true;
+			}
+			if (!found){
+				docsListed[docsListed.length] = "<%Relationship <%builtin ID%>%>";
+				writeEvenOddTRTag(); 
+				document.write("<td><a href=\"<%hosturl%>im/WebClient?IssueID=<%Relationship <%builtin ID%>%>\" target=\"_blank\"><%Relationship <%builtin ID%>%></a></td>");
+				document.write("<td><%Relationship Shared Text%></td>");
+				<%iteraterelationshipfields%>
+					document.write("<td>&relationshipfieldname</td>");
+				<%/iteraterelationshipfields%>
+				document.write("<td><a href=\"<%hosturl%>im/runreport?selection=&doccontentreport&issues=<%Relationship <%builtin ID%>%>\"'><img src=\"<%hosturl%>MKS_RQ_2007/Segment.gif\" alt=\"View Document\"/></a></td></tr>");
+			}
+		</script>
+		<%endrelationshipsdetail%>
+		<%/segment%>
+        </table>
+    </td>
+</tr>
+<tr><td colspan="2"><hr class="hr_default"></td></tr>
+<tr><td >&nbsp;</td></tr>
+<script type="text/javascript"> line_count=0; </script>
+<%enddetail%>
+</table>
+<center class="footer"><%solutionproperty Requirements,MKS Requirements%>ReportFooterText<%endsolutionproperty%></center>
+
+<script type="text/javascript">
+	if (REPORT_ISSUES == "")
+		document.all.RERUNLINK.href = "<%hosturl%>im/runreport?selection=&currentReportName";
+	else
+		document.all.RERUNLINK.href = "<%hosturl%>im/runreport?selection=&currentReportName&issues=" + REPORT_ISSUES;
+</script>
+</body>
+</html>
