@@ -167,18 +167,18 @@
 
 
     <table id="roottable" class="table-responsive">
-    <tbody hidden>
+    <tbody>
       <%begindetail%>
 
       <!--<tr><td colspan="&#fields" class="bold_color_large">&issueheading - <a    href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=<%ID%>">   view in PTC</a></td></tr>-->
-        <tr class="scr_header">
+        <tr class="sow_header">
           <!-- Display issue field headings -->
           <%iteratefields%>
           <th class="heading1">&fielddisplayname</th>
           <%/iteratefields%>
           <th class="heading1">Link to PTC</th>
         </tr>
-        <tr class="scr">
+        <tr class="sow">
           <%iteratefields%>
           <td class="border &relationshipfielddisplayname">&fieldname</td>
           <%/iteratefields%>
@@ -188,7 +188,7 @@
 
         <!--<tr><td colspan="100%"><hr class="hr_default"></td></tr>-->
         <!-- Level One Relationships -->
-        <tr class="scr_relationship"><td colspan="&#fields">
+        <tr class="sow_relationship"><td colspan="&#fields">
           <%segment
           name="Level 1 Relationships"
           type="relationship"
@@ -209,7 +209,7 @@
               <%beginrelationshipsdetail &relationshipsdetailfields%>
               <%relationshipfilter%>
               <%relationshipsortby &sortby%>
-              <tr class="platform_test_case">
+              <tr class="test_case">
                 <%iteraterelationshipfields%>
                 <td class="level1 &relationshipfielddisplayname">&relationshipfieldname</td>
                   <%/iteraterelationshipfields%>
