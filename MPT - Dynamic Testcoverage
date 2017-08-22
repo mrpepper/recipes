@@ -167,7 +167,7 @@
 
 
     <table id="roottable" class="table-responsive">
-    <tbody>
+    <tbody hidden>
       <%begindetail%>
 
       <!--<tr><td colspan="&#fields" class="bold_color_large">&issueheading - <a    href="integrity://lanwinsvmks1.eu.adglob.net:8001/im/viewissue?selection=<%ID%>">   view in PTC</a></td></tr>-->
