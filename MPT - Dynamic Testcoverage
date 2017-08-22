@@ -431,6 +431,29 @@
               </td></tr>
               <%/segment%>
               <%endrelationshipsdetail%>
+              <!--add empty sow heading to also calculate the last sow in the table (hack)-->
+              <tr class="sow_header">
+                  <!-- Display issue field headings -->
+                  <th class="heading1">Document ID</th>
+                  <th class="heading1">ID</th>
+                  <th class="heading1">Type</th>
+                  <th class="heading1">Subject</th>
+                  <th class="heading1">Text</th>
+                  <th class="heading1">Details (Parent)</th>
+                  <th class="heading1">Detailed with (Child)</th>
+                  <th class="heading1">Affected Test Platforms</th>
+                  <th class="heading1">Acceptance Criteria</th>
+                  <th class="heading1">Relationship Test Issue</th>
+                  <th class="heading1">Target Milestone</th>
+                  <th class="heading1">State</th>
+                  <th class="heading1">State PT1</th>
+                  <th class="heading1">State PT2</th>
+                  <th class="heading1">State PVS</th>
+                  <th class="heading1">Test Platform</th>
+                  <th class="heading1">Assigned User</th>
+                  <th class="heading1">SIL</th>
+                  <th class="heading1">Link to PTC</th>
+                </tr>
             </tbody>
             <!--    <tr><td colspan="100%"><hr class="hr_default"></td></tr>
             <tr><td colspan="100%">&nbsp;</td></tr>
