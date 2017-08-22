@@ -142,8 +142,8 @@
                 <option value='QM'>QM</option>
               </select>
             </div>
-            <button type="button" onclick="main()" class="btn   btn-default">Submit</button>
-            <button type="button" class="btn btn-info" data-toggle="collapse"   data-target="#OverviewTable">Requirements Table</button>
+            <button type="button" onclick="main()" class="btn   btn-default">Submit Options</button>
+            <button type="button" class="btn btn-info" data-toggle="collapse"   data-target="#OverviewTable">Show Requirements Table</button>
           </form>
         </div>
       </nav>
@@ -158,8 +158,8 @@
             </tr>
             <tr>
                 <td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>
-                <td><div id="OverviewChart" style="width:600px; height:400px;"></div></td>
-
+                <td><div id="DepartmentOverview" style="width:800px; height:400px;"></div></td>
+                <!--<td><div id="ItemOverviewChart" style="width:600px; height:400px;"></div></td>-->
             </tr>
         </table>
     </div>
