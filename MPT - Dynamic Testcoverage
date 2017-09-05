@@ -58,59 +58,11 @@
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
 
-    <!--
-        We cannot conditionally output the item headers, so if an item doesn't have any
-        related items the recipe will still output empty tables.  This function will
-        inspect the final DOM and remove any empty tables.
-    -->
-    <script type="text/javascript">
-    function removeEmptyHeaders() {
-        var tables = document.getElementById("roottable").getElementsByTagName("table");
-        var toRemove = new Array();
-
-        for(var i = 0; i < tables.length; i++ ) {
-            var children = tables[i].childNodes;
-            var containsRows = false;
-            outer: for(var j = 0; j < children.length; j++) {
-                switch(children[j].tagName) {
-                    case "TBODY":
-                        containsRows = children[j].getElementsByTagName("tr").length > 0;
-                        break;
-                    case "TABLE":
-                        // a related issue sub-table will appear after any issue rows
-                        break outer;
-                    default:
-                        //ignore
-                        break;
-                }
-            }
-
-            if(!containsRows) {
-                // we are pointing at the table to remove but we want to remove the
-                // containing row
-                var parentCell = tables[i].parentNode;
-                if(parentCell) {
-                    var parentRow = parentCell.parentNode;
-                    if(parentRow) {
-                        toRemove.push(parentRow);
-                    }
-                }
-            }
-        }
-
-        for(var i = 0; i < toRemove.length; i++) {
-            toRemove[i].parentNode.removeChild(toRemove[i]);
-        }
-    }
-    </script>
-
-
-
 </head>
 <%dateformat%>
 <%datetimeformat%>
 <%sortby &sortby%>
-<body onload="removeEmptyHeaders()">
+<body>
     <!--Div that holds the Title -->
     <div id="header">
         <div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
@@ -123,28 +75,32 @@
     </div>
 
     <!--Div that holds the Navbar -->
-    <div class="container">
+    <div class="container-fluid">
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Report Options:</a>
+            <a class="navbar-brand" href="#">Options:</a>
           </div>
 
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-              <select id="selected_Test_Platforms" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
+              <label>Test Platforms</label>
+              <select id="selected_Test_Platforms" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Test Platforms">
               </select>
             </div>
             <div class="form-group">
-              <select id="selected_Variant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
+              <label>Variant</label>
+              <select id="selected_Variant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Variant">
               </select>
             </div>
             <div class="form-group">
-			  <select id="selected_Customer" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
-			  </select>
-			</div>
-            <div class="form-group">
-              <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true">
+              <label>Customer</label>
+              <select id="selected_Customer" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Customer">
+            </select>
+            </div>
+            <div class="form-group" name="SIL Relevancy">
+              <label>SIL Relevancy</label>
+              <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="SIL Relevancy">
                 <option value='-All-' selected>-All-</option>
                 <option value='Safety Relevant'>Safety Relevant</option>
                 <option value='QM'>QM</option>
@@ -475,7 +431,8 @@
     <tr><td colspan="&#fields">&nbsp;</td></tr>-->
     <%enddetail%>
 
-    <div id="TableContainer"> </div>
+    <div class="container-fluid" id="TableContainer">
+    </div>
 
     </tbody>
 
