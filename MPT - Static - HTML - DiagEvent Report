@@ -1,6 +1,6 @@
 <%version 1%>
-<%description 
-    <b>Data:</b> static defined DVP Status Report<br>
+<%description
+    <b>Data:</b> static defined Diag Event Report<br>
     <b>Notes:</b>
 %>
 <%dateformat%>
@@ -8,9 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">	
-	<title>DVP Status Report</title>
-	
+	<meta charset="UTF-8">
+	<title>Diagnostic Event Report</title>
+
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 	<!-- <style media="screen" type="text/css"> -->
 	<style type="text/css">
@@ -22,20 +22,20 @@
         #TCrest { background-color:#ffff00; }
         #TCcomp { background-color:#00ff00; }
 	</style>
-	
+
 	<!-- jQuery 2.x not supported by IE8 -->
 	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="https://http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperationsDVP.js"></script>
-	
+	<!--<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperationsDVP.js"></script>-->
+
 </head>
 <body>
 	<%begindetail%>
 	<div id="header">
 		<div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
-		<h1>DVP Status Report</h1>
+		<h1>Diag Event Report</h1>
 		<div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
 		<h2><%Summary%></h2>
 		<p>Test Case Document: <%ID%><br>
@@ -51,9 +51,9 @@
 			<li>show/hide: <button class="toggleData">Data</button></li>
 		</ul>
 	</div>
-	
+
 	<div class="section" id="Data">
-	
+
 		<table id="entries">
 			<thead>
 				<tr class="shaded">
@@ -63,14 +63,17 @@
 					<th id="colContains">Contains</th>
 					<th id="colCategory">Category</th>
 					<th id="colSummary">Summary</th>
-					<th>Test Platform</th>
-					<th>Work Instruction</th>
-					<th>PT1 State</th>
-					<th>PT1 Verification Report</th>
-					<th>PT2 State</th>
-					<th>PT2 Verification Report</th>
-					<th>PVS State</th>
-					<th>PVS Verification Report</th>
+					<th>Diag_DTC_Name</th>
+					<th>State</th>
+					<th>Diag_DTC</th>
+					<th>Text</th>
+					<th>Diag_DTC_Name</th>
+					<th>Diag_ErrorSetCondition_de</th>
+					<th>Diag_ErrorSetCondition_en</th>
+                    <th>Error Clear Condition en</th>
+                    <th>Error Clear Condition de</th>
+                    <th>Error Debounce Time</th>
+                    <th>Error Clear Time</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -81,17 +84,20 @@
 					<td><%Contains%></td>
 					<td><%Category%></td>
 					<td><%Summary%></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><%Diag_DTC_Name%></td>
+					<td><%State%></td>
+					<td><%Diag_DTC%></td>
+					<td><%Diag_ErrorSetCondition_de%></td>
+					<td><%Diag_ErrorSetCondition_en%></td>
+                    <td><%Diag_ErrorClearCondition_de%></td>
+					<td><%Diag_ErrorClearCondition_en%></td>
+					<td><%Diag_ErrorClearCondition_de%></td>
+                    <td><%Diag_ErrorDebouncingTime%></td>
+                    <td><%Diag_ErrorClearDebouncingTime%></td>
+                    <td><%Diag_TypeofMonitoring%></td>
 				</tr>
-				
-				<%beginrelationshipsdetail Query[ ( ( (walk[<%builtin Contains%>] <%<%builtin ID%>%>) ) ) ]%>	
+
+				<%beginrelationshipsdetail Query[ ( ( (walk[<%builtin Contains%>] <%<%builtin ID%>%>) ) ) ]%>
 				<tr class="item" id="<%Relationship ID%>">
 					<td></td>
 					<td></td>
@@ -99,24 +105,24 @@
 					<td><%Relationship Contains%></td>
 					<td><%Relationship Category%></td>
 					<td><%Relationship Summary%></td>
-					<td><%Relationship Test Platform%></td>
-					<td><%Relationship Work Instruction / Test Procedure%></td>
-					<td><%Relationship State PT1%></td>
-					<td><%Relationship Verification Report in CM System for PT1%></td>
-					<td><%Relationship State PT2%></td>
-					<td><%Relationship Verification Report in CM System for PT2%></td>
-					<td><%Relationship State PVS%></td>
-					<td><%Relationship Verification Report in CM System for PVS%></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<%endrelationshipsdetail%>
 			</tbody>
 		</table>
-		
+
 	</div>
-	
+
 	<div class="section" id="Report">
 	</div>
-	
+
 <div id="footer">
 	<p>Report and any print outs are not subject to version control or configuration management. The report is only valid according to the stated issue date.<br>
 	Disclosure or duplication without consent is prohibited.</p>
