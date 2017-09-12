@@ -23,6 +23,17 @@
         #TCcomp { background-color:#00ff00; }
 	</style>
 
+
+    <style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+    .tg .tg-v4ss{background-color:#D2E4FC;font-weight:bold;vertical-align:top}
+    .tg .tg-9hbo{font-weight:bold;vertical-align:top}
+    .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+    .tg .tg-yw4l{vertical-align:top}
+    </style>
+
 	<!-- jQuery 2.x not supported by IE8 -->
 	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -38,85 +49,93 @@
 		<h1>Diag Event Report</h1>
 		<div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
 		<h2><%Summary%></h2>
-		<p>Test Case Document: <%ID%><br>
-		Created by <%Created By%> on <%Created Date%><br>
-		Last modified by <%Modified By%> on <%Modified Date%><br>
+		<p>Document: <%ID%><br>
 		Project: <%Project%></p>
 		<p>Report issue of: <%currentdate%></p>
 	</div>
 
-	<div id="nav">
-		<p>Report manipulation options:</p>
-		<ul>
-			<li>show/hide: <button class="toggleData">Data</button></li>
-		</ul>
-	</div>
-
 	<div class="section" id="Data">
 
-		<table id="entries">
-			<thead>
-				<tr class="shaded">
-					<th id="colOrder">Order</th>
-					<th id="colLevel">Level</th>
-					<th id="colID">ID</th>
-					<th id="colContains">Contains</th>
-					<th id="colCategory">Category</th>
-					<th id="colSummary">Summary</th>
-					<th>Diag_DTC_Name</th>
-					<th>State</th>
-					<th>Diag_DTC</th>
-					<th>Text</th>
-					<th>Diag_DTC_Name</th>
-					<th>Diag_ErrorSetCondition_de</th>
-					<th>Diag_ErrorSetCondition_en</th>
-                    <th>Error Clear Condition en</th>
-                    <th>Error Clear Condition de</th>
-                    <th>Error Debounce Time</th>
-                    <th>Error Clear Time</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="document" id="<%ID%>">
-					<td>0</td>
-					<td>0</td>
-					<td><%ID%></td>
-					<td><%Contains%></td>
-					<td><%Category%></td>
-					<td><%Summary%></td>
-					<td><%Diag_DTC_Name%></td>
-					<td><%State%></td>
-					<td><%Diag_DTC%></td>
-					<td><%Diag_ErrorSetCondition_de%></td>
-					<td><%Diag_ErrorSetCondition_en%></td>
-                    <td><%Diag_ErrorClearCondition_de%></td>
-					<td><%Diag_ErrorClearCondition_en%></td>
-					<td><%Diag_ErrorClearCondition_de%></td>
-                    <td><%Diag_ErrorDebouncingTime%></td>
-                    <td><%Diag_ErrorClearDebouncingTime%></td>
-                    <td><%Diag_TypeofMonitoring%></td>
-				</tr>
-
-				<%beginrelationshipsdetail Query[ ( ( (walk[<%builtin Contains%>] <%<%builtin ID%>%>) ) ) ]%>
-				<tr class="item" id="<%Relationship ID%>">
-					<td></td>
-					<td></td>
-					<td><%Relationship ID%></td>
-					<td><%Relationship Contains%></td>
-					<td><%Relationship Category%></td>
-					<td><%Relationship Summary%></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<%endrelationshipsdetail%>
-			</tbody>
-		</table>
+        <table class="tg" style="undefined;table-layout: fixed; width: 1057px">
+        <colgroup>
+        <col style="width: 275px">
+        <col style="width: 258px">
+        <col style="width: 282px">
+        <col style="width: 242px">
+        </colgroup>
+          <tr>
+            <th class="tg-9hbo"><%ID%></th>
+            <th class="tg-9hbo" colspan="3"><%Summary%><br></th>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">DTC Code Hex</td>
+            <td class="tg-6k2t"><%Diag_DTC_(HEX)%></td>
+            <td class="tg-v4ss">Error Event Id</td>
+            <td class="tg-6k2t"><%Diag_ErrorEventID%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">DTC Name Customer</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_CustomerDTCName%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Description</td>
+            <td class="tg-6k2t" colspan="3"><%Text%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Customer Symptoms</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_Customer_Symptoms_en%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Backup Function System 1 (BLDC)</td>
+            <td class="tg-6k2t"><%Diag_BackupFunction1%></td>
+            <td class="tg-v4ss">Backup Function System 2 (Solenoid)</td>
+            <td class="tg-6k2t"><%Diag_BackupFunction2%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Error Name</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_ErrorName%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Error Set Conditon</td>
+            <td class="tg-6k2t" colspan="3"><%Diag_ErrorSetCondition_en%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Error Clear Condition</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_ErrorClearCondition_en%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Error Set Debouncing Time</td>
+            <td class="tg-6k2t"><%Diag_ErrorSetDebouncingTime%></td>
+            <td class="tg-v4ss">Error Clear Debouncing Time</td>
+            <td class="tg-6k2t"><%Diag_ErrorClearDebouncingTime%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Error Monitoring Activation Condition</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_ErrorMonitoringActivationCondition_en%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Operation Cycle</td>
+            <td class="tg-6k2t"><%Diag_OperationCycle%></td>
+            <td class="tg-v4ss">Priority DTC</td>
+            <td class="tg-6k2t"><%Diag_DEM_Priority%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Aging Cycle</td>
+            <td class="tg-yw4l"><%Diag_AgingCycle%></td>
+            <td class="tg-9hbo">Aging / Healing Counter</td>
+            <td class="tg-yw4l"><%Diag_AgingCounter%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">AWD/4WD Warning Lamp</td>
+            <td class="tg-6k2t"><%Diag_WarningIndicationLamp%></td>
+            <td class="tg-v4ss">OBD Malfunction Indication Lamp</td>
+            <td class="tg-6k2t"><%Diag_OBDMalfunctionIndicationLamp%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Repair Shop Order</td>
+            <td class="tg-yw4l" colspan="3"><%Diag_Repair_Shop_Order_en%></td>
+          </tr>
+        </table>
 
 	</div>
 
