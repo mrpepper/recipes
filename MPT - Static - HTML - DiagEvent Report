@@ -11,21 +11,12 @@
 	<meta charset="UTF-8">
 	<title>Diagnostic Event Report</title>
 
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-	<!-- <style media="screen" type="text/css"> -->
 	<style type="text/css">
 	<%screenStyleSheet%>
 	</style>
-	<style type="text/css">
-		.centered { text-align:center; }
-		#TCfail { background-color:#ff0000; color:#ffffff; }
-        #TCrest { background-color:#ffff00; }
-        #TCcomp { background-color:#00ff00; }
-	</style>
-
 
     <style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+    .tg  {border-collapse:collapse;border-spacing:100;border-color:#999;margin-bottom: 100px}
     .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
     .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
     .tg .tg-v4ss{background-color:#D2E4FC;font-weight:bold;vertical-align:top}
@@ -35,11 +26,10 @@
     </style>
 
 	<!-- jQuery 2.x not supported by IE8 -->
-	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="https://http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-	<!--<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperationsDVP.js"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperations.js"></script>
 
 </head>
 <body>
@@ -55,8 +45,9 @@
 	</div>
 
 	<div class="section" id="Data">
-
-        <table class="tg" style="undefined;table-layout: fixed; width: 1057px">
+        <%beginrelationshipsdetail Query[(walkdocordered[<%<%builtin ID%>%>]recurseinclude)]%>
+        <div id="<%Relationship ID%>"></div>
+        <table class="tg" id="<%Relationship Requirements Type%>" style="undefined;table-layout: fixed; width: 1057px">
         <colgroup>
         <col style="width: 275px">
         <col style="width: 258px">
@@ -64,78 +55,85 @@
         <col style="width: 242px">
         </colgroup>
           <tr>
-            <th class="tg-9hbo"><%ID%></th>
-            <th class="tg-9hbo" colspan="3"><%Summary%><br></th>
+              <td hidden=""><%Relationship <%virtual Section%>%></td>
+              <td hidden=""><%Relationship Requirements Type%></td>
+          </tr>
+          <tr>
+            <th id="ReqID" class="tg-9hbo"><%Relationship ID%></th>
+            <th class="tg-9hbo" colspan="3"><%Relationship Summary%><br></th>
           </tr>
           <tr>
             <td class="tg-v4ss">DTC Code Hex</td>
-            <td class="tg-6k2t"><%Diag_DTC_(HEX)%></td>
+            <td class="tg-6k2t"><%Relationship Diag_DTC_(HEX)%></td>
             <td class="tg-v4ss">Error Event Id</td>
-            <td class="tg-6k2t"><%Diag_ErrorEventID%></td>
+            <td class="tg-6k2t"><%Relationship Diag_ErrorEventID%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">DTC Name Customer</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_CustomerDTCName%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_CustomerDTCName%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Description</td>
-            <td class="tg-6k2t" colspan="3"><%Text%></td>
+            <td id="DescriptionText" class="tg-6k2t" colspan="3"><%Relationship Text%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Customer Symptoms</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_Customer_Symptoms_en%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_Customer_Symptoms_en%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Backup Function System 1 (BLDC)</td>
-            <td class="tg-6k2t"><%Diag_BackupFunction1%></td>
+            <td class="tg-6k2t"><%Relationship Diag_BackupFunction1%></td>
             <td class="tg-v4ss">Backup Function System 2 (Solenoid)</td>
-            <td class="tg-6k2t"><%Diag_BackupFunction2%></td>
+            <td class="tg-6k2t"><%Relationship Diag_BackupFunction2%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Error Name</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_ErrorName%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_ErrorName%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Error Set Conditon</td>
-            <td class="tg-6k2t" colspan="3"><%Diag_ErrorSetCondition_en%></td>
+            <td class="tg-6k2t" colspan="3"><%Relationship Diag_ErrorSetCondition_en%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Error Clear Condition</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_ErrorClearCondition_en%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_ErrorClearCondition_en%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Error Set Debouncing Time</td>
-            <td class="tg-6k2t"><%Diag_ErrorSetDebouncingTime%></td>
+            <td class="tg-6k2t"><%Relationship Diag_ErrorSetDebouncingTime%></td>
             <td class="tg-v4ss">Error Clear Debouncing Time</td>
-            <td class="tg-6k2t"><%Diag_ErrorClearDebouncingTime%></td>
+            <td class="tg-6k2t"><%Relationship Diag_ErrorClearDebouncingTime%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Error Monitoring Activation Condition</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_ErrorMonitoringActivationCondition_en%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_ErrorMonitoringActivationCondition_en%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Operation Cycle</td>
-            <td class="tg-6k2t"><%Diag_OperationCycle%></td>
+            <td class="tg-6k2t"><%Relationship Diag_OperationCycle%></td>
             <td class="tg-v4ss">Priority DTC</td>
-            <td class="tg-6k2t"><%Diag_DEM_Priority%></td>
+            <td class="tg-6k2t"><%Relationship Diag_DEM_Priority%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Aging Cycle</td>
-            <td class="tg-yw4l"><%Diag_AgingCycle%></td>
+            <td class="tg-yw4l"><%Relationship Diag_AgingCycle%></td>
             <td class="tg-9hbo">Aging / Healing Counter</td>
-            <td class="tg-yw4l"><%Diag_AgingCounter%></td>
+            <td class="tg-yw4l"><%Relationship Diag_AgingCounter%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">AWD/4WD Warning Lamp</td>
-            <td class="tg-6k2t"><%Diag_WarningIndicationLamp%></td>
+            <td class="tg-6k2t"><%Relationship Diag_WarningIndicationLamp%></td>
             <td class="tg-v4ss">OBD Malfunction Indication Lamp</td>
-            <td class="tg-6k2t"><%Diag_OBDMalfunctionIndicationLamp%></td>
+            <td class="tg-6k2t"><%Relationship Diag_OBDMalfunctionIndicationLamp%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Repair Shop Order</td>
-            <td class="tg-yw4l" colspan="3"><%Diag_Repair_Shop_Order_en%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship Diag_Repair_Shop_Order_en%></td>
           </tr>
         </table>
+
+        <%endrelationshipsdetail%>
+
 
 	</div>
 
