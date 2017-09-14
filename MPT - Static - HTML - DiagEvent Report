@@ -70,7 +70,9 @@
           </tr>
           <tr>
             <td class="tg-9hbo">DTC Name Customer</td>
-            <td class="tg-yw4l" colspan="3"><%Relationship Diag_CustomerDTCName%></td>
+            <td class="tg-yw4l"><%Relationship Diag_CustomerDTCName%></td>
+            <td class="tg-9hbo">DTC Name MPT</td>
+            <td class="tg-yw4l"><%Relationship Diag_DTC_Name%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Description</td>
