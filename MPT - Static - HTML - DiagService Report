@@ -1,0 +1,150 @@
+<%version 1%>
+<%description
+    <b>Data:</b> static defined Diag Event Report<br>
+    <b>Notes:</b>
+%>
+<%dateformat%>
+<%datetimeformat%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Diagnostic Services Report</title>
+
+	<style type="text/css">
+	<%screenStyleSheet%>
+	</style>
+
+    <style type="text/css">
+    @media screen {
+        .tg  {border-collapse:collapse;border-spacing:100;border-color:#999;margin-bottom: 100px}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+        .tg .tg-v4ss{background-color:#D2E4FC;font-weight:bold;vertical-align:top}
+        .tg .tg-9hbo{font-weight:bold;vertical-align:top}
+        .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+        .tg .tg-yw4l{vertical-align:top}
+    }
+    @media print {
+        .tg  {border-collapse:collapse;border-spacing:100;border-color:#999;margin-bottom: 100px}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+        .tg .tg-v4ss{background-color:#D2E4FC;font-weight:bold;vertical-align:top}
+        .tg .tg-9hbo{font-weight:bold;vertical-align:top}
+        .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+        .tg .tg-yw4l{vertical-align:top}
+    }
+    </style>
+
+	<!-- jQuery 2.x not supported by IE8 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperations.js"></script>
+
+</head>
+<body>
+	<%begindetail%>
+	<div id="header">
+		<div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
+		<h1>Diag Event Report</h1>
+		<div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
+		<h2><%Summary%></h2>
+		<p>Document: <%ID%><br>
+		Project: <%Project%></p>
+		<p>Report issue of: <%currentdate%></p>
+	</div>
+
+	<div class="section" id="Data">
+        <%beginrelationshipsdetail Query[(walkdocordered[<%<%builtin ID%>%>]recurseinclude)]%>
+        <div id="<%Relationship ID%>"></div>
+        <table class="tg" id="<%Relationship Requirements Type%>" style="undefined;table-layout: fixed; width: 1057px">
+        <colgroup>
+        <col style="width: 275px">
+        <col style="width: 258px">
+        <col style="width: 282px">
+        <col style="width: 242px">
+        </colgroup>
+          <tr>
+              <td hidden=""><%Relationship <%virtual Section%>%></td>
+              <td hidden=""><%Relationship Requirements Type%></td>
+          </tr>
+          <tr>
+            <th id="ReqID" class="tg-9hbo"><%Relationship ID%></th>
+            <th class="tg-9hbo" colspan="3"><%Relationship Summary%><br></th>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Customer Service Name</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Customer Service Name%></td>
+            <td class="tg-v4ss">Service ID</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Service ID%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Sub Service Name</td>
+            <td class="tg-yw4l"><%Relationship DiagServiceSpec_Sub Service%></td>
+            <td class="tg-9hbo">Sub Service ID</td>
+            <td class="tg-yw4l"><%Relationship DiagServiceSpec_Sub Service%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Symbolic Service Name</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Symbolic Service Name%></td>
+            <td class="tg-v4ss">Diagnostic Identifier</td>
+            <td class="tg-6k2t"><%Relationship DiagServ_DID%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Service Description</td>
+            <td id="DescriptionText" class="tg-yw4l" colspan="3"><%Relationship DiagServiceSpec_Service Description%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Customer Argument Name</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Customer Argument Name%></td>
+            <td class="tg-v4ss">Symbolic Argument Name</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Symbolic Argument Name%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Argument Description</td>
+            <td class="tg-yw4l" colspan="3"><%Relationship DiagServiceSpec_Argument Description%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Argument Length [byte]</td>
+            <td class="tg-6k2t" colspan="3"><%Relationship DiagServiceSpec_Argument Length (byte)%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Response Length [byte]</td>
+            <td class="tg-yw4l" colspan="3"><%Relationship DiagServiceSpec_Response Length (byte)%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Position in Response</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Position In Response%></td>
+            <td class="tg-v4ss">Datatype</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Datatype%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo">Range Min</td>
+            <td class="tg-yw4l"><%Relationship DiagServiceSpec_Range Min%></td>
+            <td class="tg-9hbo">Range Max</td>
+            <td class="tg-yw4l"><%Relationship DiagServiceSpec_Range Max%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Resolution</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Resolution%></td>
+            <td class="tg-v4ss">Unit</td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_Unit%></td>
+          </tr>
+        </table>
+
+        <%endrelationshipsdetail%>
+
+
+	</div>
+
+	<div class="section" id="Report">
+	</div>
+
+<div id="footer">
+	<p>Report and any print outs are not subject to version control or configuration management. The report is only valid according to the stated issue date.<br>
+	Disclosure or duplication without consent is prohibited.</p>
+</div>
+<%enddetail%>
+</body>
+</html>
