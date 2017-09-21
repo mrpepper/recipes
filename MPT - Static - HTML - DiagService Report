@@ -130,6 +130,10 @@
             <td class="tg-v4ss">Unit</td>
             <td class="tg-6k2t"><%Relationship DiagServiceSpec_Unit%></td>
           </tr>
+          <tr>
+            <td hidden class="tg-v4ss">Description</td>
+            <td hidden id="DescriptionText" class="tg-6k2t" colspan="3"><%Relationship Text%></td>
+          </tr>
         </table>
 
         <%endrelationshipsdetail%>

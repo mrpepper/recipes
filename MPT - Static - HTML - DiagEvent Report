@@ -74,7 +74,7 @@
           </tr>
           <tr>
             <td class="tg-v4ss">Description</td>
-            <td id="DescriptionText" class="tg-6k2t" colspan="3"><%Relationship Text%></td>
+            <td name="DescriptionText" id="DescriptionText" class="tg-6k2t" colspan="3"><%Relationship Text%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Customer Symptoms</td>
