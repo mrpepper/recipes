@@ -44,6 +44,10 @@
         div#Dashboard table td { vertical-align:top; text-align:center; }
         div#Dashboard p#footnotes { font-size:0.6em; }
         p#content { font-size:0.8em; color:rgb(0,0,0); }
+        .clickable-tr{
+            cursor: pointer;
+            background: #eee;
+        }
     </style>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -57,6 +61,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/clickfunction.js"></script>
 
 </head>
 <%dateformat%>
@@ -117,14 +122,16 @@
     <div class="table-responsive" id="Dashboard">
         <table class="table">
             <tr>
-                <td><div id="PTCoverage" style="width:1000px; height:400px;"></div></td>
-                <td><div id="SOWCoverageChart" style="width:600px; height:400px;"></div></td>
+                <td><div id="PTCoverage" style="width:700px; height:400px;"></div></td>
+                <td><div id="DepartmentOverview" style="width:400px; height:400px;"></div></td>
+                <td><div id="SOWCoverageChart" style="width:400px; height:400px;"></div></td>
+
             </tr>
-            <tr>
-                <td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>
-                <td><div id="DepartmentOverview" style="width:800px; height:400px;"></div></td>
+            <!--<tr>-->
+                <!--<td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>-->
+
                 <!--<td><div id="ItemOverviewChart" style="width:600px; height:400px;"></div></td>-->
-            </tr>
+            <!--</tr>-->
         </table>
     </div>
     <!--Table that holds the Charts -->
