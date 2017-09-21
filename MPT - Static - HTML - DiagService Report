@@ -88,11 +88,11 @@
             <td class="tg-v4ss">Symbolic Service Name</td>
             <td class="tg-6k2t"><%Relationship DiagServiceSpec_Symbolic Service Name%></td>
             <td class="tg-v4ss">Diagnostic Identifier</td>
-            <td class="tg-6k2t"><%Relationship DiagServ_DID%></td>
+            <td class="tg-6k2t"><%Relationship DiagServiceSpec_RID/DID%></td>
           </tr>
           <tr>
             <td class="tg-9hbo">Service Description</td>
-            <td id="DescriptionText" class="tg-yw4l" colspan="3"><%Relationship DiagServiceSpec_Service Description%></td>
+            <td class="tg-yw4l" colspan="3"><%Relationship DiagServiceSpec_Service Description%></td>
           </tr>
           <tr>
             <td class="tg-v4ss">Customer Argument Name</td>
