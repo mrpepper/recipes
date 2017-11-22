@@ -61,7 +61,10 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
-    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/clickfunction.js"></script>
+
+    <script type="text/javascript" src="<<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
 
 </head>
 <%dateformat%>
@@ -83,36 +86,79 @@
     <div class="container-fluid">
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Options:</a>
-          </div>
-
           <form class="navbar-form navbar-left" role="search">
+            <table>
+            <tr><td>
             <div class="form-group">
-              <label>Test Platforms</label>
-              <select id="selected_Test_Platforms" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Test Platforms">
-              </select>
+              <table>
+                <tr>
+                  <td>
+                    <label>Test Platforms</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <select id="selected_Test_Platforms" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Test Platforms">
+                    </select>
+                  </td>
+                </tr>
+              </table>
             </div>
             <div class="form-group">
-              <label>Variant</label>
-              <select id="selected_Variant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Variant">
-              </select>
+                <table>
+                  <tr>
+                    <td>
+                        <label>Variant</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <select id="selected_Variant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Variant">
+                        </select>
+                    </td>
+                  </tr>
+                </table>
             </div>
             <div class="form-group">
-              <label>Customer</label>
-              <select id="selected_Customer" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Customer">
-            </select>
+                <table>
+                  <tr>
+                    <td>
+                        <label>Customer</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <select id="selected_Customer" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Customer">
+                       </select>
+                    </td>
+                  </tr>
+                </table>
             </div>
             <div class="form-group" name="SIL Relevancy">
-              <label>SIL Relevancy</label>
-              <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="SIL Relevancy">
-                <option value='-All-' selected>-All-</option>
-                <option value='Safety Relevant'>Safety Relevant</option>
-                <option value='QM'>QM</option>
-              </select>
+                <table>
+                  <tr>
+                    <td>
+                        <label>SIL Relevancy</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="SIL Relevancy">
+                          <option value='-All-' selected>-All-</option>
+                          <option value='Safety Relevant'>Safety Relevant</option>
+                          <option value='QM'>QM</option>
+                        </select>
+                    </td>
+                  </tr>
+                </table>
             </div>
-            <button type="button" onclick="main()" class="btn   btn-default">Submit Options</button>
-            <button type="button" class="btn btn-info" data-toggle="collapse"   data-target="#OverviewTable">Show Requirements Table</button>
+            </td></tr>
+            <tr><td>
+                <button type="button" onclick="main()" class="btn" style="background-color:#f44336" >Submit Options</button>
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#OverviewTable">Show Requirements Table</button>
+            </td>
+            </tr>
+            </table>
           </form>
         </div>
       </nav>
@@ -124,10 +170,10 @@
             <tr>
                 <td><div id="PTCoverage" style="width:700px; height:400px;"></div></td>
                 <td><div id="DepartmentOverview" style="width:400px; height:400px;"></div></td>
-                <td><div id="SOWCoverageChart" style="width:400px; height:400px;"></div></td>
 
             </tr>
             <!--<tr>-->
+                <!--<td><div id="SOWCoverageChart" style="width:400px; height:400px;"></div></td>-->
                 <!--<td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>-->
 
                 <!--<td><div id="ItemOverviewChart" style="width:600px; height:400px;"></div></td>-->
@@ -440,7 +486,35 @@
 
     <div class="container-fluid" id="TableContainer">
     </div>
-
+<!--
+    <div class="container">
+        <h1>Bootstrap Table Examples <a href="https://github.com/wenzhixin/bootstrap-table-examples" class="btn btn-primary" role="button" target="_blank">Learn more &raquo;</a></h1>
+        <div id="toolbar">
+            <button id="remove" class="btn btn-danger" disabled>
+                <i class="glyphicon glyphicon-remove"></i> Delete
+            </button>
+        </div>
+        <table id="table"
+               data-toolbar="#toolbar"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-show-export="true"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-minimum-count-columns="2"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-id-field="id"
+               data-page-list="[10, 25, 50, 100, ALL]"
+               data-show-footer="false"
+               data-side-pagination="server"
+               data-url="/examples/bootstrap_table/data"
+               data-response-handler="responseHandler">
+        </table>
+    </div>
+-->
     </tbody>
 
 
