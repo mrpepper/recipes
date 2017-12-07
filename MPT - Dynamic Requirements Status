@@ -62,10 +62,9 @@
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SCRStatus.js"></script>
 
-    <script type="text/javascript" src="<<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
     <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.css">
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
-
 </head>
 <%dateformat%>
 <%datetimeformat%>
