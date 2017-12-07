@@ -92,12 +92,10 @@
               <table>
                 <tr>
                   <td>
-                    <label>Documents</label>
+                   <label>Documents</label>
                   </td>
-                </tr>
-                <tr>
                   <td>
-                    <select id="selected_Documents" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Test Platforms">
+                    <select id="selected_Documents" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search" data-actions-box="true" name="Documents">
                     </select>
                   </td>
                 </tr>
@@ -120,9 +118,10 @@
         <table>
             <tbody>
                 <tr>
-                    <td colspan="2"><div id="StatesforParents" style="width:500px; height:800px;"></div></td>
-                    <td colspan="2"><div id="StatesforChilds" style="width:500px; height:800px;"></div></td>
-                    <td colspan="2"><div id="StatesforReviews" style="width:500px; height:800px;"></div></td>
+                    <td><div id="StatesforParents" style="width:300px; height:500px;"></div></td>
+                    <td><div id="StatesforChilds" style="width:300px; height:500px;"></div></td>
+                    <td><div id="StatesforReviews" style="width:300px; height:500px;"></div></td>
+                    <td><div id="StatesforTests" style="width:300px; height:500px;"></div></td>
                 </tr>
             </tbody>
         </table>
