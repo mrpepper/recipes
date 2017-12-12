@@ -62,7 +62,7 @@
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
 
-    <script type="text/javascript" src="<<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
     <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.css">
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
 
@@ -108,28 +108,13 @@
                 <table>
                   <tr>
                     <td>
-                        <label>Variant</label>
+                        <label>Priority</label>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                        <select id="selected_Variant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Variant">
+                        <select id="selected_Priority" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Variant">
                         </select>
-                    </td>
-                  </tr>
-                </table>
-            </div>
-            <div class="form-group">
-                <table>
-                  <tr>
-                    <td>
-                        <label>Customer</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                        <select id="selected_Customer" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="Customer">
-                       </select>
                     </td>
                   </tr>
                 </table>
@@ -143,10 +128,9 @@
                   </tr>
                   <tr>
                     <td>
-                        <select id="selected_SIL_relevant" class="selectpicker" multiple  data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="SIL Relevancy">
+                        <select id="selected_SIL_relevant" class="selectpicker" data-live-search="true" data-live-search-placeholder="Search"   data-actions-box="true" name="SIL Relevancy">
                           <option value='-All-' selected>-All-</option>
                           <option value='Safety Relevant'>Safety Relevant</option>
-                          <option value='QM'>QM</option>
                         </select>
                     </td>
                   </tr>
