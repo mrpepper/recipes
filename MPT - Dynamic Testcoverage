@@ -139,7 +139,7 @@
             </td></tr>
             <tr><td>
                 <button type="button" onclick="main()" class="btn" style="background-color:#f44336" >Submit Options</button>
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#OverviewTable">Show Requirements Table</button>
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#TableContainer">Show Requirements Table</button>
             </td>
             </tr>
             </table>
@@ -468,39 +468,7 @@
     <tr><td colspan="&#fields">&nbsp;</td></tr>-->
     <%enddetail%>
 
-    <div class="container-fluid" id="TableContainer">
-    </div>
-<!--
-    <div class="container">
-        <h1>Bootstrap Table Examples <a href="https://github.com/wenzhixin/bootstrap-table-examples" class="btn btn-primary" role="button" target="_blank">Learn more &raquo;</a></h1>
-        <div id="toolbar">
-            <button id="remove" class="btn btn-danger" disabled>
-                <i class="glyphicon glyphicon-remove"></i> Delete
-            </button>
-        </div>
-        <table id="table"
-               data-toolbar="#toolbar"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-toggle="true"
-               data-show-columns="true"
-               data-show-export="true"
-               data-detail-view="true"
-               data-detail-formatter="detailFormatter"
-               data-minimum-count-columns="2"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-id-field="id"
-               data-page-list="[10, 25, 50, 100, ALL]"
-               data-show-footer="false"
-               data-side-pagination="server"
-               data-url="/examples/bootstrap_table/data"
-               data-response-handler="responseHandler">
-        </table>
-    </div>
--->
-    </tbody>
-
+    <table class="container-fluid" id="TableContainer"></table>
 
     <div id="footer">
         <p>Report and any print outs are not subject to version control or configuration management. The report is only valid according to the stated issue date.<br>
