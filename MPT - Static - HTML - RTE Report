@@ -1,0 +1,118 @@
+<%version 1%>
+<%description
+    <b>Data:</b> static defined RTE Report<br>
+    <b>Notes:</b>
+%>
+<%dateformat%>
+<%datetimeformat%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>RTE Report</title>
+
+	<style type="text/css">
+	<%screenStyleSheet%>
+	</style>
+
+    <style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:100;border-color:#999;margin-bottom: 0px}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+    .tg .tg-v4ss{background-color:#D2E4FC;font-weight:bold;vertical-align:top}
+    .tg .tg-9hbo{font-weight:bold;vertical-align:top}
+    .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+    .tg .tg-yw4l{vertical-align:top}
+    </style>
+
+	<!-- jQuery 2.x not supported by IE8 -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/DocumentOperations.js"></script>
+
+</head>
+<body>
+	<%begindetail%>
+	<div id="header">
+		<div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
+		<h1>RTE Report</h1>
+		<div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
+		<h2><%Summary%></h2>
+		<p>Document: <%ID%><br>
+		Project: <%Project%></p>
+		<p>Report issue of: <%currentdate%></p>
+	</div>
+
+	<div class="section" id="Data">
+        <%beginrelationshipsdetail Query[(walkdocordered[<%<%builtin ID%>%>]recurseinclude)]%>
+        <div id="<%Relationship ID%>"></div>
+        <table class="tg" id="<%Relationship Requirements Type%>" style="undefined;table-layout: fixed; width: 1057px">
+        <colgroup>
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        <col style="width: 25px">
+        </colgroup>
+          <tr>
+            <td hidden><%Relationship <%virtual Section%>%></td>
+            <td hidden><%Relationship Requirements Type%></td>
+          </tr>
+          <tr>
+            <th id="ReqID" class="tg-9hbo" colspan="2"><%Relationship ID%></th>
+            <th class="tg-9hbo" colspan="8"><%Relationship Summary%><br></th>
+          </tr>
+          <tr>
+            <td class="tg-v4ss" colspan="2">Interface Name</td>
+            <td class="tg-6k2t" colspan="6"><%Relationship Interface_Name%></td>
+            <td class="tg-v4ss">SIL</td>
+            <td class="tg-6k2t"><%Relationship SIL%></td>
+          </tr>
+          <tr>
+            <td class="tg-9hbo" colspan="2">Interface Description</td>
+            <td class="tg-yw4l" colspan="8"><%Relationship Interface_Description%></td>
+          </tr>
+          <tr>
+            <td class="tg-v4ss">Data Type</td>
+            <td class="tg-6k2t"><%Relationship Interface_MinDatatype%></td>
+            <td class="tg-v4ss">Range Min</td>
+            <td class="tg-6k2t"><%Relationship Interface_Range Min%></td>
+            <td class="tg-v4ss">Range Max</td>
+            <td class="tg-6k2t"><%Relationship Interface_Range Max%></td>
+            <td class="tg-v4ss">Resolution</td>
+            <td class="tg-6k2t"><%Relationship Interface_Resolution%></td>
+            <td class="tg-v4ss">Unit</td>
+            <td class="tg-6k2t"><%Relationship Interface_Unit%></td>
+          </tr>
+
+          <tr>
+            <td class="tg-9hbo">Description</td>
+            <td name="DescriptionText" id="DescriptionText" class="tg-yw4l" colspan="3"><%Relationship Text%></td>
+            <td class="tg-9hbo">State</td>
+            <td class="tg-yw4l" colspan="2"><%Relationship State%></td>
+            <td class="tg-9hbo">Assigned User</td>
+            <td class="tg-yw4l" colspan="2"><%Relationship Assigned User%></td>
+          </tr>
+        </table>
+
+        <%endrelationshipsdetail%>
+
+
+	</div>
+
+	<div class="section" id="Report">
+	</div>
+
+<div id="footer">
+	<p>Report and any print outs are not subject to version control or configuration management. The report is only valid according to the stated issue date.<br>
+	Disclosure or duplication without consent is prohibited.</p>
+</div>
+<%enddetail%>
+</body>
+</html>
