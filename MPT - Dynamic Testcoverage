@@ -49,22 +49,33 @@
             background: #eee;
         }
     </style>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <!-- jQery -->
+        <!--
+    <script src="<%weburl%>imweb/scripts/mpt_html5/Packages/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%weburl%>imweb/scripts/mpt_html5/Packages/jquery/jquery-migrate-1.4.1.min.js"></script>
+-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Select-->
+    <script src="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <!--google charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
     <script>google.charts.load('current', {packages: ['corechart']}); </script>
+    <!--Magna sourcen-->
     <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/SOWTestManagement.js"></script>
-
-    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.js"></script>
-    <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/bootstrap-table/src/bootstrap-table.css">
-    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <!--bootstrap table-->
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-table/src/bootstrap-table.js"></script>
+    <link rel="stylesheet" href=       "<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-table/src/bootstrap-table.css">
+    <!--dataTables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
 </head>
 <%dateformat%>
