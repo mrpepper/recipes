@@ -57,8 +57,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <!-- Bootstrap -->
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!--
+    <script src="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap4/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap4/dist/css/bootstrap.min.css">
+-->
     <!-- Bootstrap Select-->
     <script src="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <link rel="stylesheet" href="<%weburl%>imweb/scripts/mpt_html5/Packages/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -76,7 +81,10 @@
     <!--dataTables-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-
+<!--
+    <script type="text/javascript" src="<%weburl%>imweb/scripts/mpt_html5/Packages/DataTables-1.10.16/datatables.min.js"></script>
+    <link rel="stylesheet" href=       "<%weburl%>imweb/scripts/mpt_html5/Packages/DataTables-1.10.16/bootstrap-table.css">
+-->
 </head>
 <%dateformat%>
 <%datetimeformat%>
@@ -86,15 +94,18 @@
     <div id="header">
         <div id="logo"><img src="<%weburl%>imweb/styles/logo_hires.jpg" alt="MAGNA Logo" style="height:30px;"></div>
         <h1>&reporttitle</h1>
-        <!--
+<!--
         <div id="toggleNav"><img src="<%weburl%>imweb/styles/ui-icon_nav.png" alt="show/hide navigation" style="width:16px; height:16px;"></div>
-        -->
+    -->
+        <button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#SelectContainer" style="float: right;">
+          <img src="<%weburl%>imweb/styles/ui-icon_nav.png" style="width:16px; height:16px;">
+        </button>
         <p id="content">Project: FT46<span id="project"></span><br>
         Report issue of: <span id="reportdate"><%currentdate%></span></p>
     </div>
 
     <!--Div that holds the Navbar -->
-    <div class="container-fluid">
+    <div hidden id="SelectContainer" class="collapse" class="container-fluid">
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <form class="navbar-form navbar-left" role="search">
@@ -143,16 +154,13 @@
                           <option value='-All-' selected>-All-</option>
                           <option value='Safety Relevant'>Safety Relevant</option>
                         </select>
+                        <button type="button" onclick="main()" class="btn" style="background-color:#f44336" >Submit Options</button>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#TableContainer">Show Requirements Table</button>
                     </td>
                   </tr>
                 </table>
             </div>
             </td></tr>
-            <tr><td>
-                <button type="button" onclick="main()" class="btn" style="background-color:#f44336" >Submit Options</button>
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#TableContainer">Show Requirements Table</button>
-            </td>
-            </tr>
             </table>
           </form>
         </div>
@@ -164,10 +172,12 @@
         <table class="table">
             <tr>
                 <td><div id="PTCoverage" style="width:700px; height:400px;"></div></td>
-                <td><div id="DepartmentOverview" style="width:400px; height:400px;"></div></td>
-
+                <td><div id="DepartmentStateOverview" style="width:1000px; height:400px;"></div></td>
             </tr>
-            <!--<tr>-->
+<!--            <tr>
+                <td><div id="DepartmentOverview" style="width:400px; height:400px;"></div></td>
+            </tr>
+            <tr>-->
                 <!--<td><div id="SOWCoverageChart" style="width:400px; height:400px;"></div></td>-->
                 <!--<td><div id="TestCoverage" style="width:1000px; height:400px;"></div></td>-->
 
